@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Job Radar — Self-hosted Job Search Intelligence | Metaventions AI</title>
+<meta name="description" content="Five Claude Code skills + Python engine. Daily ATS scan, LinkedIn alert ingest, warm-line orchestration, end-to-end apply pipeline. Self-hosted. Your data, your machine." />
+<meta name="theme-color" content="#06b6d4" />
+
+<!-- OG / Twitter -->
+<meta property="og:title" content="Job Radar — Self-hosted Job Search Intelligence" />
+<meta property="og:description" content="Five Claude Code skills + Python engine. Daily ATS scan, LinkedIn alert ingest, warm-line, apply pipeline." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://dicoangelo.github.io/job-radar-production/" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-2: #161b22;
+    --bg-3: #1a1a2e;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --violet: #a855f7;
+    --purple: #8b5cf6;
+    --indigo: #6366f1;
+    --cyan: #06b6d4;
+    --cyan-bright: #22d3ee;
+    --grad: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #06b6d4 100%);
+    --grad-soft: linear-gradient(135deg, rgba(168,85,247,.12) 0%, rgba(99,102,241,.10) 50%, rgba(6,182,212,.12) 100%);
+    --border: rgba(6,182,212,.22);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.55;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 800px 600px at 20% 10%, rgba(168,85,247,.10), transparent 60%),
+      radial-gradient(ellipse 800px 600px at 80% 30%, rgba(6,182,212,.10), transparent 60%),
+      radial-gradient(ellipse 600px 400px at 50% 90%, rgba(99,102,241,.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  /* ─────────────── Nav ─────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px) saturate(180%);
+    background: rgba(13,17,23,.72);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; font-size: 15px; letter-spacing: .04em;
+  }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: var(--grad);
+    display: grid; place-items: center;
+    box-shadow: 0 0 24px rgba(6,182,212,.45);
+  }
+  .brand-mark::before {
+    content: ""; width: 12px; height: 12px;
+    background: var(--bg); border-radius: 3px;
+    clip-path: polygon(0 100%, 50% 0, 100% 100%, 75% 100%, 50% 35%, 25% 100%);
+  }
+  .brand .name { color: var(--text); }
+  .brand .by { color: var(--text-dim); font-weight: 400; font-size: 12px; margin-left: 6px; }
+  .nav-links { display: flex; gap: 24px; font-size: 14px; }
+  .nav-links a { color: var(--text-dim); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--cyan-bright); }
+  .nav-cta {
+    background: var(--grad);
+    color: #0d1117 !important;
+    padding: 8px 16px; border-radius: 8px;
+    font-weight: 600; font-size: 13px;
+    text-decoration: none;
+    transition: transform .15s, box-shadow .2s;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(6,182,212,.4); }
+
+  /* ─────────────── Hero ─────────────── */
+  .hero { padding: 96px 0 80px; text-align: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: var(--grad-soft);
+    border: 1px solid var(--border);
+    font-size: 12px; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 28px;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--cyan-bright);
+    box-shadow: 0 0 8px var(--cyan-bright);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+  }
+  h1 {
+    font-family: 'Orbitron', system-ui, sans-serif;
+    font-size: clamp(40px, 7vw, 84px);
+    line-height: 1;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 22px;
+    letter-spacing: -0.02em;
+  }
+  .tagline {
+    font-size: clamp(18px, 2.2vw, 24px);
+    color: var(--text-dim);
+    max-width: 760px;
+    margin: 0 auto 40px;
+    font-weight: 400;
+  }
+  .tagline em { color: var(--cyan-bright); font-style: normal; }
+  .cta-row {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+  .btn {
+    padding: 14px 28px; border-radius: 10px;
+    font-weight: 600; font-size: 15px;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform .15s, box-shadow .2s, background .2s;
+    border: 1px solid var(--border);
+  }
+  .btn-primary {
+    background: var(--grad);
+    color: #0d1117;
+    border: none;
+    box-shadow: 0 8px 28px rgba(6,182,212,.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(6,182,212,.5); }
+  .btn-ghost {
+    background: rgba(255,255,255,.04);
+    color: var(--text);
+  }
+  .btn-ghost:hover { background: rgba(6,182,212,.1); border-color: var(--cyan); }
+
+  .stat-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 24px; max-width: 760px; margin: 0 auto;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Orbitron', system-ui, sans-serif;
+    font-size: 36px; font-weight: 700;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 8px;
+  }
+
+  /* ─────────────── Sections ─────────────── */
+  section { padding: 80px 0; }
+  .section-eyebrow {
+    font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'Orbitron', system-ui, sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .section-lede {
+    color: var(--text-dim); font-size: 17px;
+    max-width: 720px; margin-bottom: 48px;
+  }
+
+  /* ─────────────── Skill cards ─────────────── */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .skill-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-card::before {
+    content: ""; position: absolute; inset: 0;
+    background: var(--grad-soft);
+    opacity: 0; transition: opacity .25s;
+    pointer-events: none;
+  }
+  .skill-card:hover { transform: translateY(-4px); border-color: var(--cyan); box-shadow: 0 12px 32px rgba(6,182,212,.18); }
+  .skill-card:hover::before { opacity: 1; }
+  .skill-card > * { position: relative; z-index: 1; }
+  .skill-name {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 17px; font-weight: 700;
+    color: var(--cyan-bright);
+    margin-bottom: 8px;
+  }
+  .skill-sub {
+    font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 14px; font-weight: 600;
+  }
+  .skill-desc { font-size: 14px; color: var(--text-dim); line-height: 1.55; }
+
+  /* ─────────────── Architecture ─────────────── */
+  .arch-diagram {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    overflow-x: auto;
+  }
+  .arch-svg { width: 100%; height: auto; min-width: 720px; }
+
+  /* ─────────────── Code block ─────────────── */
+  .code {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 14px;
+    color: var(--text);
+    overflow-x: auto;
+    line-height: 1.7;
+    position: relative;
+  }
+  .code .c { color: var(--text-dim); }
+  .code .p { color: var(--violet); }
+  .code .k { color: var(--cyan-bright); }
+  .code-label {
+    position: absolute; top: 14px; right: 18px;
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ─────────────── Sample output ─────────────── */
+  .terminal {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,.4);
+  }
+  .terminal-bar {
+    background: var(--bg-3);
+    padding: 12px 18px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .terminal-dot.r { background: #ff5f57; }
+  .terminal-dot.y { background: #febc2e; }
+  .terminal-dot.g { background: #28c840; }
+  .terminal-title {
+    margin-left: 14px; font-size: 12px; color: var(--text-dim);
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  }
+  .terminal-body {
+    padding: 28px;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .terminal-body .label { color: var(--text-dim); }
+  .terminal-body .val { color: var(--cyan-bright); font-weight: 600; }
+  .terminal-body .accent { color: var(--violet); }
+  .terminal-body .num { color: var(--cyan); font-weight: 600; }
+  .terminal-body .ok { color: #4ade80; }
+
+  /* ─────────────── Comparison table ─────────────── */
+  .cmp {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cmp th, .cmp td {
+    padding: 16px 22px;
+    text-align: left;
+    border-bottom: 1px solid rgba(6,182,212,.1);
+  }
+  .cmp th {
+    background: var(--bg-3);
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+  .cmp tr:last-child td { border-bottom: none; }
+  .cmp td:first-child { color: var(--text-dim); font-size: 13px; letter-spacing: .04em; }
+  .cmp td.bad { color: #f87171; }
+  .cmp td.good { color: var(--cyan-bright); font-weight: 500; }
+
+  /* ─────────────── Footer ─────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 56px 0 32px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .footer-grad {
+    height: 4px;
+    background: var(--grad);
+    margin-bottom: 56px;
+  }
+  footer .tag { color: var(--text-dim); font-size: 14px; margin-bottom: 22px; }
+  footer .links { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+  footer a { color: var(--cyan-bright); text-decoration: none; font-size: 14px; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .hero { padding: 72px 0 60px; }
+    section { padding: 60px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────────────────────────── Nav ───────────────────────────── -->
+<nav>
+  <div class="wrap row">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>
+        <span class="name">JOB RADAR</span>
+        <span class="by">by Metaventions AI</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#install">Install</a>
+      <a href="#example">Example</a>
+    </div>
+    <a href="https://github.com/Dicoangelo/job-radar-production" class="nav-cta">GitHub →</a>
+  </div>
+</nav>
+
+<!-- ───────────────────────────── Hero ───────────────────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> Self-hosted · MIT · Claude Code native</div>
+    <h1>Job Radar</h1>
+    <p class="tagline">Five Claude Code skills + a Python engine. <em>One concrete top pick a day</em> — not a wall of options. Your data stays on your machine.</p>
+    <div class="cta-row">
+      <a href="https://github.com/Dicoangelo/job-radar-production" class="btn btn-primary">⌘ Get on GitHub →</a>
+      <a href="#install" class="btn btn-ghost">View install steps</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">5</div><div class="stat-label">Skills</div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">ATS Adapters</div></div>
+      <div class="stat"><div class="stat-num">~1.5k</div><div class="stat-label">Engine LOC</div></div>
+      <div class="stat"><div class="stat-num">1</div><div class="stat-label">YAML Config</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-label">External DB</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Skills ───────────────────────────── -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-eyebrow">The Five Skills</div>
+    <h2>Everything you'd do, automated.</h2>
+    <p class="section-lede">Discover, score, qualify, warm-line, apply. Each skill is one markdown file in <code>~/.claude/commands/</code> — Claude Code picks them up automatically.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-name">/job-radar</div>
+        <div class="skill-sub">Daily ATS scan</div>
+        <p class="skill-desc">Scrapes target companies via Greenhouse, Lever, Ashby. Scores against your lane regex. Outputs one top pick + 3 backups.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">/job-radar-linkedin</div>
+        <div class="skill-sub">Free Premium replacement</div>
+        <p class="skill-desc">Ingests LinkedIn job-alert emails from Gmail. Parses subject-line cards. Auto-captures warm-line connections.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">/job-radar-firecrawl</div>
+        <div class="skill-sub">Broad-web discovery</div>
+        <p class="skill-desc">Paid variant. Firecrawl search across the live web. Same scoring brain as the free pipeline. 10-15 credits per run.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">/warm-line</div>
+        <div class="skill-sub">Pre-apply leverage</div>
+        <p class="skill-desc">Tier 1-4 connection ranking. Ready-to-paste outreach drafts. Halts cold-applies when ATS dedup risk exists.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">/apply</div>
+        <div class="skill-sub">End-to-end submit</div>
+        <p class="skill-desc">JD URL to confirmation. WebFetch JD, tailor resume + cover, render to PDF, browser-MCP submit to Greenhouse / Lever / Ashby.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Architecture ───────────────────────────── -->
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-eyebrow">Architecture</div>
+    <h2>One engine, one config, one SQLite file.</h2>
+    <p class="section-lede">Skills orchestrate. Engine scores. SQLite persists. Your <code>profile.yml</code> at <code>~/.job-radar/profile.yml</code> is the single source of truth — edit one file and every skill respects the change.</p>
+
+    <div class="arch-diagram">
+      <svg class="arch-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#a855f7"/>
+            <stop offset="50%" stop-color="#6366f1"/>
+            <stop offset="100%" stop-color="#06b6d4"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#06b6d4"/>
+            <stop offset="100%" stop-color="#22d3ee"/>
+          </linearGradient>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 0 L10 5 L0 10 Z" fill="#a855f7"/>
+          </marker>
+        </defs>
+
+        <!-- Operator -->
+        <rect x="340" y="14" width="120" height="44" rx="10" fill="url(#g2)" />
+        <text x="400" y="42" text-anchor="middle" fill="#0d1117" font-family="Orbitron, system-ui" font-weight="700" font-size="14">OPERATOR</text>
+
+        <!-- Skills layer -->
+        <rect x="40" y="100" width="720" height="110" rx="14" fill="none" stroke="#06b6d4" stroke-width="2" stroke-dasharray="4 4" />
+        <text x="56" y="125" fill="#06b6d4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">SKILLS LAYER · ~/.claude/commands/</text>
+
+        <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">
+          <rect x="60" y="140" width="124" height="56" rx="10" fill="#1a1a2e" stroke="#06b6d4"/>
+          <text x="122" y="172" text-anchor="middle" fill="#22d3ee">/job-radar</text>
+          <rect x="200" y="140" width="124" height="56" rx="10" fill="#1a1a2e" stroke="#06b6d4"/>
+          <text x="262" y="166" text-anchor="middle" fill="#22d3ee">/job-radar</text>
+          <text x="262" y="182" text-anchor="middle" fill="#22d3ee">-linkedin</text>
+          <rect x="340" y="140" width="124" height="56" rx="10" fill="#1a1a2e" stroke="#06b6d4"/>
+          <text x="402" y="166" text-anchor="middle" fill="#22d3ee">/job-radar</text>
+          <text x="402" y="182" text-anchor="middle" fill="#22d3ee">-firecrawl</text>
+          <rect x="480" y="140" width="124" height="56" rx="10" fill="#1a1a2e" stroke="#06b6d4"/>
+          <text x="542" y="172" text-anchor="middle" fill="#22d3ee">/warm-line</text>
+          <rect x="620" y="140" width="124" height="56" rx="10" fill="#1a1a2e" stroke="#06b6d4"/>
+          <text x="682" y="172" text-anchor="middle" fill="#22d3ee">/apply</text>
+        </g>
+
+        <!-- Operator → skills -->
+        <line x1="400" y1="58" x2="400" y2="100" stroke="#06b6d4" stroke-width="2" marker-end="url(#arr)"/>
+
+        <!-- Engine layer -->
+        <rect x="40" y="240" width="720" height="120" rx="14" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="4 4" />
+        <text x="56" y="265" fill="#a855f7" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">PYTHON ENGINE · ~/.job-radar/engine/</text>
+
+        <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">
+          <rect x="60" y="280" width="124" height="60" rx="10" fill="#1a1a2e" stroke="#a855f7"/>
+          <text x="122" y="305" text-anchor="middle" fill="#c4b5fd">profile.yml</text>
+          <text x="122" y="322" text-anchor="middle" fill="#8b949e" font-size="10">loader</text>
+          <rect x="200" y="280" width="124" height="60" rx="10" fill="#1a1a2e" stroke="#a855f7"/>
+          <text x="262" y="305" text-anchor="middle" fill="#c4b5fd">scorer.py</text>
+          <text x="262" y="322" text-anchor="middle" fill="#8b949e" font-size="10">0-100 lane</text>
+          <rect x="340" y="280" width="124" height="60" rx="10" fill="#1a1a2e" stroke="#a855f7"/>
+          <text x="402" y="305" text-anchor="middle" fill="#c4b5fd">discover.py</text>
+          <text x="402" y="322" text-anchor="middle" fill="#8b949e" font-size="10">ATS pipeline</text>
+          <rect x="480" y="280" width="124" height="60" rx="10" fill="#1a1a2e" stroke="#a855f7"/>
+          <text x="542" y="305" text-anchor="middle" fill="#c4b5fd">briefing.py</text>
+          <text x="542" y="322" text-anchor="middle" fill="#8b949e" font-size="10">one screen</text>
+          <rect x="620" y="280" width="124" height="60" rx="10" fill="#1a1a2e" stroke="#a855f7"/>
+          <text x="682" y="298" text-anchor="middle" fill="#c4b5fd">linkedin</text>
+          <text x="682" y="313" text-anchor="middle" fill="#c4b5fd">_ingest.py</text>
+          <text x="682" y="328" text-anchor="middle" fill="#8b949e" font-size="10">idempotent</text>
+        </g>
+
+        <!-- Skills → engine -->
+        <line x1="400" y1="196" x2="400" y2="240" stroke="#a855f7" stroke-width="2" marker-end="url(#arr)"/>
+
+        <!-- Data + ATS layer -->
+        <rect x="40" y="390" width="350" height="110" rx="14" fill="none" stroke="#06b6d4" stroke-width="2" stroke-dasharray="4 4" />
+        <text x="56" y="415" fill="#06b6d4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">DATA · ~/.job-radar/</text>
+
+        <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">
+          <rect x="60" y="428" width="100" height="56" rx="10" fill="#16213e" stroke="#06b6d4"/>
+          <text x="110" y="452" text-anchor="middle" fill="#22d3ee">radar.db</text>
+          <text x="110" y="470" text-anchor="middle" fill="#8b949e" font-size="10">6 tables</text>
+          <rect x="170" y="428" width="100" height="56" rx="10" fill="#16213e" stroke="#06b6d4"/>
+          <text x="220" y="452" text-anchor="middle" fill="#22d3ee">briefings/</text>
+          <text x="220" y="470" text-anchor="middle" fill="#8b949e" font-size="10">.md audit</text>
+          <rect x="280" y="428" width="100" height="56" rx="10" fill="#16213e" stroke="#06b6d4"/>
+          <text x="330" y="448" text-anchor="middle" fill="#22d3ee">lca.db</text>
+          <text x="330" y="464" text-anchor="middle" fill="#8b949e" font-size="9">opt visa</text>
+          <text x="330" y="476" text-anchor="middle" fill="#8b949e" font-size="9">module</text>
+        </g>
+
+        <rect x="410" y="390" width="350" height="110" rx="14" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="4 4" />
+        <text x="426" y="415" fill="#8b5cf6" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">ATS ADAPTERS · no auth</text>
+
+        <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">
+          <rect x="430" y="428" width="100" height="56" rx="10" fill="#1a1a2e" stroke="#8b5cf6"/>
+          <text x="480" y="452" text-anchor="middle" fill="#c4b5fd">Greenhouse</text>
+          <text x="480" y="470" text-anchor="middle" fill="#8b949e" font-size="10">boards-api</text>
+          <rect x="540" y="428" width="100" height="56" rx="10" fill="#1a1a2e" stroke="#8b5cf6"/>
+          <text x="590" y="452" text-anchor="middle" fill="#c4b5fd">Lever</text>
+          <text x="590" y="470" text-anchor="middle" fill="#8b949e" font-size="10">api.lever.co</text>
+          <rect x="650" y="428" width="100" height="56" rx="10" fill="#1a1a2e" stroke="#8b5cf6"/>
+          <text x="700" y="452" text-anchor="middle" fill="#c4b5fd">Ashby</text>
+          <text x="700" y="470" text-anchor="middle" fill="#8b949e" font-size="10">posting-api</text>
+        </g>
+
+        <!-- Engine → data + ATS -->
+        <line x1="220" y1="360" x2="220" y2="390" stroke="#06b6d4" stroke-width="2" marker-end="url(#arr)"/>
+        <line x1="590" y1="360" x2="590" y2="390" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Comparison ───────────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Why It Exists</div>
+    <h2>The same job search, with leverage.</h2>
+    <table class="cmp">
+      <tr>
+        <th></th>
+        <th>Default flow</th>
+        <th>Job Radar flow</th>
+      </tr>
+      <tr>
+        <td>Discovery</td>
+        <td class="bad">Open LinkedIn, scroll, refresh</td>
+        <td class="good">5 sources auto-scanned daily</td>
+      </tr>
+      <tr>
+        <td>Filtering</td>
+        <td class="bad">Eye-balling titles</td>
+        <td class="good">Title regex + blocklist + comp floor</td>
+      </tr>
+      <tr>
+        <td>Ranking</td>
+        <td class="bad">Most recent first</td>
+        <td class="good">Lane fit + warm-line + history-aware</td>
+      </tr>
+      <tr>
+        <td>Warm-line</td>
+        <td class="bad">Forgotten until after applying</td>
+        <td class="good">Mandatory pre-apply check + draft DMs</td>
+      </tr>
+      <tr>
+        <td>Submission</td>
+        <td class="bad">Manual paste, ~80 tool calls</td>
+        <td class="good">~35 calls, browser-automated</td>
+      </tr>
+      <tr>
+        <td>Persistence</td>
+        <td class="bad">Tabs and screenshots</td>
+        <td class="good">SQLite, your data, your machine</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Install ───────────────────────────── -->
+<section id="install">
+  <div class="wrap">
+    <div class="section-eyebrow">Quickstart</div>
+    <h2>Four commands to running.</h2>
+    <p class="section-lede">Skills land in <code>~/.claude/commands/</code>. Engine lands in <code>~/.job-radar/engine/</code>. Profile lives at <code>~/.job-radar/profile.yml</code>. Idempotent — re-running upgrades in place.</p>
+    <div class="code">
+      <span class="code-label">bash</span>
+<span class="c"># 1. Clone</span>
+git clone https://github.com/Dicoangelo/job-radar-production.git
+<span class="k">cd</span> job-radar-production
+
+<span class="c"># 2. Install (sets up ~/.job-radar/, copies skills to ~/.claude/commands/)</span>
+bash install.sh
+
+<span class="c"># 3. Pick a starter profile and edit it</span>
+<span class="k">cp</span> examples/profile.revops.yml ~/.job-radar/profile.yml
+<span class="p">$EDITOR</span> ~/.job-radar/profile.yml
+
+<span class="c"># 4. Restart Claude Code, then in any project:</span>
+<span class="p">/job-radar</span>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Sample output ───────────────────────────── -->
+<section id="example">
+  <div class="wrap">
+    <div class="section-eyebrow">Sample Run</div>
+    <h2>One screen. One pick.</h2>
+    <p class="section-lede">Output from a real <code>/job-radar</code> invocation. No wall of postings. No methodology preamble. Just the pick + the action.</p>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+        <div class="terminal-title">claude code · /job-radar</div>
+      </div>
+      <div class="terminal-body"><span class="accent">JOB RADAR</span> <span class="val">2026-05-24</span>
+
+<span class="ok">TOP PICK</span>
+  <span class="label">Company:</span>     <span class="val">Stripe</span>
+  <span class="label">Role:</span>        <span class="val">Senior Revenue Operations Manager</span>
+  <span class="label">URL:</span>         https://stripe.com/jobs/listing/...
+  <span class="label">Score:</span>       <span class="num">87</span>
+  <span class="label">Warm-line:</span>   <span class="num">2 contacts</span> (Pat Example, Jamie Sample)
+  <span class="label">Why:</span>         <span class="val">Clean RevOps IC match (lane=revops, +remote, +5y range, SFDC). Warm-line locked.</span>
+  <span class="label">Action:</span>      paste into apply session:
+                 JD URL: https://stripe.com/jobs/listing/...
+                 Warm-line: Tier 2 draft ready (peer note to Pat Example)
+
+<span class="ok">BACKUPS</span>
+  1. Datadog       — Senior GTM Operations Manager   · <span class="num">79</span> · WARM:1 · https://...
+  2. Snowflake     — Senior Sales Operations Manager · <span class="num">76</span> · WARM:0 · https://...
+  3. Linear        — RevOps Lead                      · <span class="num">72</span> · WARM:0 · https://...
+
+<span class="ok">PIPELINE</span>
+  Shortlist after filters: <span class="num">14</span>
+  Warm-line locked:        <span class="num">3</span>
+  Stale (&gt;14d):            <span class="num">5</span>
+  Already applied:         <span class="num">22</span> (suppressed)
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Footer ───────────────────────────── -->
+<footer>
+  <div class="footer-grad"></div>
+  <div class="wrap">
+    <div class="brand" style="justify-content:center;margin-bottom:16px;">
+      <div class="brand-mark"></div>
+      <div>
+        <span class="name">JOB RADAR</span>
+        <span class="by">by Metaventions AI</span>
+      </div>
+    </div>
+    <p class="tag">Self-hosted job search intelligence. MIT licensed. Your data, your machine.</p>
+    <div class="links">
+      <a href="https://github.com/Dicoangelo/job-radar-production">GitHub</a>
+      <a href="https://github.com/Dicoangelo/job-radar-production/blob/main/README.md">README</a>
+      <a href="https://github.com/Dicoangelo/job-radar-production/blob/main/profile.example.yml">profile.yml reference</a>
+      <a href="https://metaventionsai.com">Metaventions AI</a>
+      <a href="https://dicoangelo.metaventionsai.com">@dicoangelo</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
