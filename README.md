@@ -8,6 +8,7 @@
 
 <br/>
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-dicoangelo.github.io-06b6d4?style=for-the-badge&labelColor=0d1117&logo=github)](https://dicoangelo.github.io/job-radar-production/demo/)
 [![Metaventions AI](https://img.shields.io/badge/METAVENTIONS_AI-Architected_Intelligence-06b6d4?style=for-the-badge&labelColor=0d1117)](https://metaventionsai.com)
 [![Author](https://img.shields.io/badge/Dicoangelo-Ecosystem-a855f7?style=for-the-badge&logo=github&labelColor=0d1117)](https://github.com/Dicoangelo)
 [![License](https://img.shields.io/badge/License-MIT-6366f1?style=for-the-badge&labelColor=0d1117)](LICENSE)
