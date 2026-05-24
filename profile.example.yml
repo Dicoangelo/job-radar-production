@@ -1,0 +1,191 @@
+# job-radar profile — fill this in once, all skills + engine read from it.
+#
+# Copy this file to `profile.yml` (in this repo root) OR to `~/.job-radar/profile.yml`
+# after install. The engine resolves in this order:
+#   1. $JOB_RADAR_PROFILE (env var, absolute path)
+#   2. ~/.job-radar/profile.yml
+#   3. ./profile.yml (CWD)
+#
+# Every value below can be edited freely. See examples/ for starter profiles.
+
+# ─── Identity ──────────────────────────────────────────────────────────────
+identity:
+  name: "Jane Doe"
+  email: "jane@example.com"
+  linkedin: "https://linkedin.com/in/janedoe"
+  current_title: "Senior Revenue Operations Manager"
+  current_company: "Acme Corp"
+
+# ─── Lane definition ──────────────────────────────────────────────────────
+# Lanes are the role families you'd actually take. The scorer classifies every
+# posting into ONE lane based on title regex. A posting that matches no lane is
+# classified `unfit` and scored 10.
+#
+# Each lane has:
+#   title_signals: regex patterns that must match the posting TITLE
+#   desc_boosts:   keyword phrases in the description that reinforce a match
+#
+# Order matters only for human readability; the scorer picks the lane with the
+# most title hits.
+lanes:
+  revops:
+    title_signals:
+      - '\brevenue\s+operations\b'
+      - '\brevops\b'
+      - '\b(gtm|sales|commercial|business)\s+operations\b'
+      - '\bdeal\s+desk\b'
+      - '\bsales\s+ops\b'
+      - '\bstrategy\s*(?:&|and)\s*operations\b'
+      - '\bgtm\s+systems\b'
+    desc_boosts:
+      - "deal desk"
+      - "pipeline hygiene"
+      - "quota"
+      - "territory planning"
+      - "forecasting"
+      - "revenue operations"
+
+  partner_ops:
+    title_signals:
+      - '\bpartner\s+(operations|program|enablement|manager)\b'
+      - '\balliance[s]?\s+(manager|director|lead|operations)\b'
+      - '\bchannel\s+(manager|operations|partner|program)\b'
+      - '\bpartnerships?\s+(manager|lead|operations|director|strategy)\b'
+      - '\bco-sell\b'
+    desc_boosts:
+      - "partner program"
+      - "partner enablement"
+      - "co-sell"
+      - "hyperscaler"
+      - "cloud alliance"
+      - "deal registration"
+
+# ─── Title blocklist (HARD SKIP) ──────────────────────────────────────────
+# Any posting whose title matches one of these is dropped immediately, even if
+# it has lane keywords elsewhere. Tune to YOUR career — Dico blocks engineering
+# titles because his lane is GTM-ops. A Python engineer would block ops titles.
+title_blocklist:
+  - '\b(software|security|site reliability|infrastructure|data|platform|backend|frontend|fullstack|full-stack|devops|qa|firmware|embedded|ios|android|mobile)\s+engineer\b'
+  - '\b(swe|sre|sdet|sysadmin)\b'
+  - '\b(machine learning|ml|nlp|cv|deep learning|research)\s+engineer\b'
+  - '\b(data scientist|machine learning scientist|research scientist)\b'
+  - '\bintern\b'
+  - '\bstudent\b'
+  - '\b(sdr|bdr)\b'
+  - '\baccount executive\b'
+
+# ─── Description signals ───────────────────────────────────────────────────
+# Penalties subtract, boosts add. Score baseline for a lane match is 45.
+# Shortlist threshold is 60. Tune to taste.
+description_red_flags:
+  - { pattern: '\b(7|8|9|10|12|15)\+?\s*years?', delta: -15, label: "7+ years required" }
+  - { pattern: "bachelor'?s? (degree )?in computer science", delta: -25, label: "CS degree required" }
+  - { pattern: "(security clearance|us citizen|citizenship)", delta: -30, label: "clearance/citizenship" }
+  - { pattern: '\bfully on-?site\b', delta: -15, label: "fully onsite" }
+
+description_green_flags:
+  - { pattern: '\b(remote|distributed|work from anywhere)\b', delta: 8, label: "remote" }
+  - { pattern: '\b(3|4|5)\+?\s*years?', delta: 8, label: "3-5 yrs sweet spot" }
+  - { pattern: '\bsalesforce\b', delta: 5, label: "SFDC" }
+
+# ─── Location filter ───────────────────────────────────────────────────────
+# Postings outside this whitelist get a -15 location penalty but aren't dropped
+# (lots of remote postings have weird location strings). Drop a posting entirely
+# only if it matches `location_blacklist`.
+location_whitelist:
+  - "remote"
+  - "united states"
+  - "us"
+  - "usa"
+  - "canada"
+  - "anywhere"
+  - "worldwide"
+  # Add your specific cities:
+  # - "toronto"
+  # - "austin"
+
+location_blacklist:
+  # Postings with these strings are dropped from the shortlist entirely.
+  # Useful for filtering offshore-only or specific cities you can't take.
+  - "india"
+  - "philippines"
+  - "costa rica"
+
+# ─── Compensation floor ───────────────────────────────────────────────────
+# If a posting lists comp below this, it gets a penalty. Currency must match
+# what the JD lists; defaults to USD.
+comp_floor:
+  amount: 80000
+  currency: "USD"
+
+# ─── Visa module ──────────────────────────────────────────────────────────
+# Most users are citizens or permanent residents and can leave this disabled.
+# Enable only if you need work authorization in a country where you're not a
+# citizen/PR (e.g. Canadian on TN visa to US, foreign national on H-1B).
+visa:
+  enabled: false
+  status: "citizen"           # citizen | permanent_resident | tn | h1b | o1 | none
+  target_country: "US"        # the country where you need work auth
+  # If enabled, the engine annotates each shortlisted company with LCA filing
+  # counts from the DOL disclosure data. Citizens see nothing; visa users see
+  # 🟢 (50+ filings), 🟡 (5-49), ⚪ (<5, unverified).
+
+# ─── Target companies ─────────────────────────────────────────────────────
+# Seed list of companies to scrape directly from their ATS boards.
+# ats_type: greenhouse | lever | ashby
+# ats_slug: the URL slug, e.g. "anthropic" for boards.greenhouse.io/anthropic
+# priority: 1 (highest) — 5
+# lane:     which of your lanes this company most often hires for
+targets:
+  - { name: "Anthropic",   ats_type: "greenhouse", ats_slug: "anthropic",   priority: 1, lane: "partner_ops" }
+  - { name: "Stripe",      ats_type: "greenhouse", ats_slug: "stripe",      priority: 1, lane: "revops" }
+  - { name: "Databricks",  ats_type: "greenhouse", ats_slug: "databricks",  priority: 2, lane: "partner_ops" }
+  - { name: "Cloudflare",  ats_type: "greenhouse", ats_slug: "cloudflare",  priority: 2, lane: "partner_ops" }
+  - { name: "Cohere",      ats_type: "ashby",      ats_slug: "cohere",      priority: 1, lane: "revops" }
+
+# ─── Gmail integration (optional) ─────────────────────────────────────────
+# Used by /job-radar-linkedin to ingest LinkedIn job alert emails.
+# Requires the Claude Code Gmail MCP to be authenticated.
+gmail:
+  enabled: true
+  linkedin_alert_sender: "jobalerts-noreply@linkedin.com"
+  ingest_window: "newer_than:30h"  # for daily loop; overlap ensures no miss
+
+# ─── Firecrawl (optional) ─────────────────────────────────────────────────
+# Used by /job-radar-firecrawl for broad-web discovery.
+# Requires FIRECRAWL_API_KEY in env. ~10-15 credits per run.
+firecrawl:
+  enabled: false
+  credit_warn_threshold: 50
+  search_queries:
+    - "Revenue Operations Manager remote 2026"
+    - "Partner Operations Manager remote 2026"
+    - "GTM Systems Manager remote 2026"
+
+# ─── Warm-line settings ───────────────────────────────────────────────────
+# How /warm-line ranks and drafts outreach.
+warm_line:
+  # Conversion rate of cold applications in your lane. Used to justify the
+  # warm-line-first behavior in /warm-line output. Track this empirically.
+  cold_conversion_rate: 0.036
+  # Block cold applications when this many prior applies exist at the same
+  # company (ATS dedupe will almost certainly auto-reject).
+  ats_block_threshold: 3
+  # Optional: a personal "do not contact" list of poisoned references.
+  poisoned_contacts: []
+
+# ─── Apply pipeline ───────────────────────────────────────────────────────
+# Paths /apply reads to tailor materials. Leave blank to disable tailoring
+# and use /apply purely for browser-submit automation.
+apply:
+  base_resume: ""           # e.g. ~/Documents/resume.md — your canonical resume
+  application_profile: ""   # JSON of autofill fields (name, phone, links, etc.)
+  output_dir: "~/.job-radar/applications"
+  default_no_submit: true   # if true, /apply renders + halts; you submit manually
+
+# ─── Output preferences ───────────────────────────────────────────────────
+output:
+  top_pick_count: 1
+  backup_count: 3
+  shortlist_threshold: 60   # score required to surface in shortlist
+  briefing_dir: "~/.job-radar/briefings"

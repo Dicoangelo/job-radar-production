@@ -1,0 +1,125 @@
+# Starter profile: Partner Operations / Cloud Alliances lane
+# Copy to ~/.job-radar/profile.yml and edit identity + targets.
+
+identity:
+  name: "Your Name"
+  email: "you@example.com"
+  linkedin: "https://linkedin.com/in/yourhandle"
+  current_title: "Senior Partner Operations Manager"
+  current_company: ""
+
+lanes:
+  partner_ops:
+    title_signals:
+      - '\bpartner\s+(operations|program|enablement|success|development|manager)\b'
+      - '\balliance[s]?\s+(manager|director|lead|operations)\b'
+      - '\bchannel\s+(manager|operations|partner|program)\b'
+      - '\becosystem\s+(manager|partner|ops|operations|lead)\b'
+      - '\b(strategic|technology|cloud)\s+partner'
+      - '\bpartnerships?\s+(manager|lead|operations|director|strategy)\b'
+      - '\bco-sell\b'
+    desc_boosts:
+      - "partner program"
+      - "partner enablement"
+      - "co-sell"
+      - "hyperscaler"
+      - "cloud alliance"
+      - "partner marketplace"
+      - "deal registration"
+      - "partner ecosystem"
+      - "AWS partner"
+      - "Microsoft partner"
+      - "Google Cloud partner"
+
+  revops:
+    title_signals:
+      - '\brevenue\s+operations\b'
+      - '\brevops\b'
+      - '\b(gtm|sales|commercial)\s+operations\b'
+    desc_boosts:
+      - "deal desk"
+      - "pipeline hygiene"
+      - "revenue operations"
+
+title_blocklist:
+  - '\b(software|security|data|platform|backend|frontend|devops|qa)\s+engineer\b'
+  - '\b(machine learning|ml|nlp|deep learning|research)\s+engineer\b'
+  - '\b(data scientist|research scientist)\b'
+  - '\bsolutions?\s+architect\b'
+  - '\bsolutions?\s+engineer\b'
+  - '\bpre[-\s]?sales\s+(engineer|architect|consultant)\b'
+  - '\b(sdr|bdr)\b'
+  - '\baccount executive\b'
+  - '\bintern\b'
+
+description_red_flags:
+  - { pattern: '\b(8|9|10|12|15)\+?\s*years?', delta: -15, label: "8+ years required" }
+  - { pattern: "(security clearance|us citizen|citizenship required)", delta: -30, label: "clearance/citizenship" }
+  - { pattern: '\bfully on-?site\b', delta: -15, label: "fully onsite" }
+
+description_green_flags:
+  - { pattern: '\b(remote|distributed|work from anywhere)\b', delta: 8, label: "remote" }
+  - { pattern: '\b(3|4|5|6|7)\+?\s*years?', delta: 8, label: "3-7 yrs sweet spot" }
+  - { pattern: '\b(aws|azure|gcp|google cloud)\s+(partner|alliance|ecosystem|co-sell)', delta: 10, label: "cloud partner" }
+  - { pattern: '\bpartner(ship)? (program|operations|enablement)', delta: 12, label: "partner ops signal" }
+  - { pattern: '\bdeal registration\b', delta: 10, label: "deal reg" }
+  - { pattern: '\bsalesforce\b', delta: 5, label: "SFDC" }
+
+location_whitelist:
+  - "remote"
+  - "united states"
+  - "usa"
+  - "canada"
+  - "anywhere"
+
+location_blacklist:
+  - "india"
+  - "philippines"
+
+comp_floor:
+  amount: 130000
+  currency: "USD"
+
+visa:
+  enabled: false
+  status: "citizen"
+  target_country: "US"
+
+targets:
+  - { name: "Anthropic",   ats_type: "greenhouse", ats_slug: "anthropic",   priority: 1, lane: "partner_ops" }
+  - { name: "Databricks",  ats_type: "greenhouse", ats_slug: "databricks",  priority: 1, lane: "partner_ops" }
+  - { name: "Cloudflare",  ats_type: "greenhouse", ats_slug: "cloudflare",  priority: 1, lane: "partner_ops" }
+  - { name: "Snowflake",   ats_type: "greenhouse", ats_slug: "snowflake",   priority: 1, lane: "partner_ops" }
+  - { name: "Confluent",   ats_type: "ashby",      ats_slug: "confluent",   priority: 2, lane: "partner_ops" }
+  - { name: "1Password",   ats_type: "ashby",      ats_slug: "1password",   priority: 2, lane: "revops" }
+  - { name: "Stripe",      ats_type: "greenhouse", ats_slug: "stripe",      priority: 2, lane: "partner_ops" }
+
+gmail:
+  enabled: true
+  linkedin_alert_sender: "jobalerts-noreply@linkedin.com"
+  ingest_window: "newer_than:30h"
+
+firecrawl:
+  enabled: false
+  credit_warn_threshold: 50
+  search_queries:
+    - "Partner Operations Manager remote"
+    - "Cloud Alliances Manager remote"
+    - "Senior Partner Development Manager remote"
+
+warm_line:
+  cold_conversion_rate: 0.036
+  ats_block_threshold: 3
+  poisoned_contacts: []
+
+apply:
+  base_resume: ""
+  application_profile: ""
+  output_dir: "~/.job-radar/applications"
+  default_no_submit: true
+
+output:
+  top_pick_count: 1
+  backup_count: 3
+  shortlist_threshold: 60
+  briefing_dir: "~/.job-radar/briefings"

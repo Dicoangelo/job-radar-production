@@ -1,0 +1,86 @@
+# Starter profile: Generic / role-agnostic
+# Use this as scaffolding when none of the other starters match. Edit the lane
+# definition to match your actual role family.
+
+identity:
+  name: "Your Name"
+  email: "you@example.com"
+  linkedin: "https://linkedin.com/in/yourhandle"
+  current_title: ""
+  current_company: ""
+
+# Define ONE lane to start. Add more as you tune.
+lanes:
+  primary:
+    title_signals:
+      # Replace with regex patterns that match the role titles you'd take.
+      # Examples for a Product Manager:
+      #   - '\bproduct\s+manager\b'
+      #   - '\bsenior\s+pm\b'
+      #   - '\bgroup\s+product\s+manager\b'
+      - '\byour\s+role\s+regex\s+here\b'
+    desc_boosts:
+      # Phrases in the description that reinforce a match.
+      - "your industry"
+
+title_blocklist:
+  # Roles you'd never take, regardless of other signals.
+  - '\bintern\b'
+  - '\bstudent\b'
+
+description_red_flags:
+  - { pattern: '\b(10|12|15)\+?\s*years?', delta: -15, label: "10+ years required" }
+  - { pattern: "(security clearance|us citizen|citizenship required)", delta: -30, label: "clearance/citizenship" }
+  - { pattern: '\bfully on-?site\b', delta: -15, label: "fully onsite" }
+
+description_green_flags:
+  - { pattern: '\b(remote|distributed|work from anywhere)\b', delta: 8, label: "remote" }
+  - { pattern: '\b(3|4|5)\+?\s*years?', delta: 8, label: "3-5 yrs sweet spot" }
+
+location_whitelist:
+  - "remote"
+  - "united states"
+  - "usa"
+  - "canada"
+  - "anywhere"
+
+location_blacklist: []
+
+comp_floor:
+  amount: 0
+  currency: "USD"
+
+visa:
+  enabled: false
+  status: "citizen"
+  target_country: "US"
+
+# Start with 3-5 companies you know hire in your lane.
+targets: []
+
+gmail:
+  enabled: false
+  linkedin_alert_sender: "jobalerts-noreply@linkedin.com"
+  ingest_window: "newer_than:30h"
+
+firecrawl:
+  enabled: false
+  credit_warn_threshold: 50
+  search_queries: []
+
+warm_line:
+  cold_conversion_rate: 0.05
+  ats_block_threshold: 3
+  poisoned_contacts: []
+
+apply:
+  base_resume: ""
+  application_profile: ""
+  output_dir: "~/.job-radar/applications"
+  default_no_submit: true
+
+output:
+  top_pick_count: 1
+  backup_count: 3
+  shortlist_threshold: 60
+  briefing_dir: "~/.job-radar/briefings"

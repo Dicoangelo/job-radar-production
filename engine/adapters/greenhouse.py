@@ -1,0 +1,48 @@
+"""Greenhouse public job board API adapter.
+Endpoint: https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true
+No auth required.
+"""
+import urllib.request
+import json
+import re
+from html import unescape
+
+UA = "Mozilla/5.0 (job-radar/1.0)"
+TIMEOUT = 20
+
+
+def _strip_html(s: str) -> str:
+    if not s:
+        return ""
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = unescape(s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def fetch(slug: str) -> list[dict]:
+    url = f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true"
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+        data = json.loads(r.read().decode("utf-8"))
+    out = []
+    for j in data.get("jobs", []):
+        loc = (j.get("location") or {}).get("name", "")
+        metadata = {m.get("name"): m.get("value") for m in (j.get("metadata") or []) if m}
+        out.append({
+            "external_id": str(j.get("id")),
+            "role": j.get("title", ""),
+            "url": j.get("absolute_url", ""),
+            "location": loc,
+            "description_text": _strip_html(j.get("content", ""))[:8000],
+            "posted_at": j.get("updated_at") or j.get("first_published"),
+            "source": "greenhouse",
+            "raw_metadata": metadata,
+            "departments": [d.get("name") for d in (j.get("departments") or []) if d],
+        })
+    return out
+
+
+if __name__ == "__main__":
+    import sys
+    for job in fetch(sys.argv[1] if len(sys.argv) > 1 else "anthropic")[:3]:
+        print(job["role"], "|", job["location"], "|", job["url"])

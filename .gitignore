@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local data — never commit a user's career.db
+*.db
+*.db-shm
+*.db-wal
+~/.job-radar/
+
+# Local config — profile.yml is per-user and may contain personal data
+profile.yml
+profile.local.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Briefings (user-generated radar output)
+briefings/
+*.log

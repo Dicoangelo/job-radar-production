@@ -1,0 +1,107 @@
+# Starter profile: Revenue Operations IC / Manager lane
+# Copy to ~/.job-radar/profile.yml and edit identity + targets.
+
+identity:
+  name: "Your Name"
+  email: "you@example.com"
+  linkedin: "https://linkedin.com/in/yourhandle"
+  current_title: "Senior RevOps Manager"
+  current_company: ""
+
+lanes:
+  revops:
+    title_signals:
+      - '\brevenue\s+operations\b'
+      - '\brevops\b'
+      - '\b(gtm|sales|commercial|business)\s+operations\b'
+      - '\bdeal\s+desk\b'
+      - '\bsales\s+ops\b'
+      - '\bstrategy\s*(?:&|and)\s*operations\b'
+      - '\bgtm\s+systems\b'
+      - '\bcrm\s+(admin|manager|analyst)\b'
+      - '\bsalesforce\s+(admin|architect|analyst|developer)\b'
+    desc_boosts:
+      - "deal desk"
+      - "pipeline hygiene"
+      - "quota planning"
+      - "territory planning"
+      - "forecasting accuracy"
+      - "revenue operations"
+      - "sales operations"
+
+title_blocklist:
+  - '\b(software|security|data|platform|backend|frontend|devops|qa)\s+engineer\b'
+  - '\b(machine learning|ml|nlp|deep learning|research)\s+engineer\b'
+  - '\b(data scientist|research scientist)\b'
+  - '\b(sdr|bdr)\b'
+  - '\baccount executive\b'
+  - '\bintern\b'
+
+description_red_flags:
+  - { pattern: '\b(8|9|10|12|15)\+?\s*years?', delta: -15, label: "8+ years required" }
+  - { pattern: "(security clearance|us citizen|citizenship required)", delta: -30, label: "clearance/citizenship" }
+  - { pattern: '\bfully on-?site\b', delta: -15, label: "fully onsite" }
+
+description_green_flags:
+  - { pattern: '\b(remote|distributed|work from anywhere)\b', delta: 8, label: "remote" }
+  - { pattern: '\b(3|4|5|6|7)\+?\s*years?', delta: 8, label: "3-7 yrs sweet spot" }
+  - { pattern: '\bsalesforce\b', delta: 5, label: "SFDC" }
+  - { pattern: '\b(hubspot|outreach|gong|clari)\b', delta: 4, label: "GTM stack" }
+  - { pattern: '\b(b2b saas|enterprise saas)\b', delta: 4, label: "B2B SaaS" }
+
+location_whitelist:
+  - "remote"
+  - "united states"
+  - "usa"
+  - "canada"
+  - "anywhere"
+
+location_blacklist:
+  - "india"
+  - "philippines"
+
+comp_floor:
+  amount: 110000
+  currency: "USD"
+
+visa:
+  enabled: false
+  status: "citizen"
+  target_country: "US"
+
+targets:
+  - { name: "Stripe",      ats_type: "greenhouse", ats_slug: "stripe",      priority: 1, lane: "revops" }
+  - { name: "Datadog",     ats_type: "greenhouse", ats_slug: "datadog",     priority: 2, lane: "revops" }
+  - { name: "Snowflake",   ats_type: "greenhouse", ats_slug: "snowflake",   priority: 2, lane: "revops" }
+  - { name: "Notion",      ats_type: "greenhouse", ats_slug: "notion",      priority: 2, lane: "revops" }
+  - { name: "Linear",      ats_type: "ashby",      ats_slug: "linear",      priority: 2, lane: "revops" }
+
+gmail:
+  enabled: true
+  linkedin_alert_sender: "jobalerts-noreply@linkedin.com"
+  ingest_window: "newer_than:30h"
+
+firecrawl:
+  enabled: false
+  credit_warn_threshold: 50
+  search_queries:
+    - "Revenue Operations Manager remote"
+    - "Sales Operations Manager remote"
+    - "GTM Systems Manager remote"
+
+warm_line:
+  cold_conversion_rate: 0.04
+  ats_block_threshold: 3
+  poisoned_contacts: []
+
+apply:
+  base_resume: ""
+  application_profile: ""
+  output_dir: "~/.job-radar/applications"
+  default_no_submit: true
+
+output:
+  top_pick_count: 1
+  backup_count: 3
+  shortlist_threshold: 60
+  briefing_dir: "~/.job-radar/briefings"
