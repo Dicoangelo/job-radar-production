@@ -14,9 +14,14 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://radar.metaventionsai.com/" />
 <meta property="og:site_name" content="Metaventions AI" />
-<meta property="og:image" content="https://radar.metaventionsai.com/og.png" />
+<meta property="og:image" content="https://radar.metaventionsai.com/og.svg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/svg+xml" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@dicoangelo" />
+<meta name="twitter:image" content="https://radar.metaventionsai.com/og.svg" />
+<link rel="alternate" type="application/atom+xml" title="Releases" href="https://github.com/Dicoangelo/job-radar-production/releases.atom" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -58,7 +63,41 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+*:focus-visible {
+  outline: 2px solid var(--cyan-bright);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+section[id] { scroll-margin-top: 88px; }
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute; top: -100px; left: 16px;
+  background: var(--grad);
+  color: #0d1117;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 1000;
+  transition: top .2s var(--easing);
+}
+.skip-link:focus { top: 16px; }
+
+/* Inline code keyboard-style chip used in body copy */
+.kbd {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: .88em;
+  padding: 2px 8px;
+  background: rgba(6,182,212,.1);
+  border: 1px solid rgba(6,182,212,.2);
+  border-radius: 5px;
+  color: var(--cyan-bright);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
 html, body {
   background: var(--bg);
   color: var(--text);
@@ -148,9 +187,12 @@ h1, h2, h3 {
   letter-spacing: -0.015em;
   line-height: 1.05;
 }
-h1 { font-size: clamp(48px, 8vw, 96px); font-weight: 800; }
-h2 { font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 20px; }
+h1 { font-size: clamp(42px, 7vw, 92px); font-weight: 800; }
+h2 { font-size: clamp(30px, 4.5vw, 52px); margin-bottom: 20px; }
 h3 { font-size: clamp(20px, 2vw, 24px); }
+@media (max-width: 480px) {
+  h1 { font-size: clamp(38px, 11vw, 56px); line-height: 1.02; }
+}
 
 .gradient-text {
   background: var(--grad-text);
@@ -168,6 +210,19 @@ h3 { font-size: clamp(20px, 2vw, 24px); }
 }
 
 /* ─────────────────────── Nav ─────────────────────── */
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px; z-index: 101; pointer-events: none;
+}
+.scroll-progress::before {
+  content: ""; display: block; height: 100%;
+  background: var(--grad);
+  width: var(--scroll, 0%);
+  box-shadow: 0 0 12px rgba(6,182,212,.6);
+  transition: width .08s linear;
+}
+
 nav {
   position: sticky; top: 0; z-index: 100;
   backdrop-filter: blur(20px) saturate(180%);
@@ -239,8 +294,19 @@ nav .row {
 }
 .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(6,182,212,.45); }
 .nav-cta:hover::before { opacity: 1; }
+.nav-cta svg, .nav-cta span { position: relative; z-index: 1; }
+.star-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 999px;
+  background: rgba(13,17,23,.5);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  color: #facc15;
+}
+.star-badge svg { color: #facc15; }
 
 @media (max-width: 860px) { .nav-links { display: none; } }
+@media (max-width: 480px) { .star-badge { display: none; } }
 
 /* ─────────────────────── Hero ─────────────────────── */
 .hero {
@@ -566,8 +632,19 @@ nav .row {
   border-color: var(--border-bright);
   box-shadow: var(--shadow-md), 0 0 0 1px rgba(6,182,212,.15);
 }
-.skill-card:hover::before { opacity: 1; }
+.skill-card:hover::before {
+  opacity: 1;
+  background:
+    radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), rgba(6,182,212,.16), transparent 60%),
+    var(--grad-soft);
+}
 .skill-card:hover::after { opacity: 1; }
+.skill-card:hover .skill-icon {
+  transform: scale(1.06) rotate(-3deg);
+  background: rgba(6,182,212,.18);
+  border-color: rgba(6,182,212,.4);
+}
+.skill-card .skill-icon { transition: transform .25s var(--easing), background .25s, border-color .25s; }
 .skill-card > * { position: relative; z-index: 1; }
 
 .skill-icon {
@@ -996,12 +1073,15 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
 
 <body>
 
-<div class="bg-mesh"></div>
-<div class="bg-grid"></div>
-<div class="bg-orbs"><div class="orb v"></div><div class="orb i"></div><div class="orb c"></div></div>
+<a href="#main" class="skip-link">Skip to main content</a>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<div class="bg-mesh" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-orbs" aria-hidden="true"><div class="orb v"></div><div class="orb i"></div><div class="orb c"></div></div>
 
 <!-- ───────────────────────── Nav ───────────────────────── -->
-<nav>
+<nav role="navigation" aria-label="Primary">
   <div class="wrap row">
     <a href="#" class="brand">
       <div class="brand-mark"></div>
@@ -1018,15 +1098,18 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
     </div>
-    <a href="https://github.com/Dicoangelo/job-radar-production" class="nav-cta">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-      GitHub
+    <a href="https://github.com/Dicoangelo/job-radar-production" class="nav-cta" aria-label="Open the GitHub repository">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      <span>GitHub</span>
+      <span class="star-badge" id="star-badge" aria-label="GitHub stars"><svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg><span id="star-count">·</span></span>
     </a>
   </div>
 </nav>
 
+<main id="main">
+
 <!-- ───────────────────────── Hero ───────────────────────── -->
-<section class="hero">
+<section class="hero" aria-labelledby="hero-title">
   <div class="wrap">
     <div style="margin-bottom: 32px;"><span class="eyebrow"><span class="dot"></span> Self-hosted · MIT · Claude Code native</span></div>
     <h1>
@@ -1141,7 +1224,7 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
   <div class="wrap reveal" style="margin-bottom: 56px; text-align: center;">
     <span class="section-eyebrow">The Five Skills</span>
     <h2>Everything you'd do, <span class="gradient-text">automated</span>.</h2>
-    <p class="lede" style="margin: 0 auto;">Each skill is one markdown file in <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 8px; background: rgba(6,182,212,.1); border-radius: 4px; color: var(--cyan-bright); font-size: .9em;">~/.claude/commands/</code>. Claude Code picks them up automatically and routes your input.</p>
+    <p class="lede" style="margin: 0 auto;">Each skill is one markdown file in <code class="kbd">~/.claude/commands/</code>. Claude Code picks them up automatically and routes your input.</p>
   </div>
   <div class="wrap reveal">
     <div class="skills-grid">
@@ -1189,7 +1272,7 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
   <div class="wrap reveal" style="margin-bottom: 56px;">
     <span class="section-eyebrow">Architecture</span>
     <h2>One engine. One config.<br/>One SQLite file.</h2>
-    <p class="lede">Skills orchestrate. Engine scores. SQLite persists. Your <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 8px; background: rgba(6,182,212,.1); border-radius: 4px; color: var(--cyan-bright); font-size: .9em;">~/.job-radar/profile.yml</code> is the single source of truth. Edit one file and every skill respects the change.</p>
+    <p class="lede">Skills orchestrate. Engine scores. SQLite persists. Your <code class="kbd">~/.job-radar/profile.yml</code> is the single source of truth. Edit one file and every skill respects the change.</p>
   </div>
   <div class="wrap reveal">
     <div class="arch-frame">
@@ -1316,7 +1399,7 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
   <div class="wrap reveal" style="margin-bottom: 48px; text-align: center;">
     <span class="section-eyebrow">Sample Run</span>
     <h2>One screen. One pick. <span class="gradient-text">No wall.</span></h2>
-    <p class="lede" style="margin: 0 auto;">Real output from <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 8px; background: rgba(6,182,212,.1); border-radius: 4px; color: var(--cyan-bright); font-size: .9em;">/job-radar</code>, the LinkedIn ingest, and a warm-line check. No methodology preamble, no postings dump, just the pick and the next action.</p>
+    <p class="lede" style="margin: 0 auto;">Real output from <code class="kbd">/job-radar</code>, the LinkedIn ingest, and a warm-line check. No methodology preamble, no postings dump, just the pick and the next action.</p>
   </div>
   <div class="wrap reveal">
     <div class="terminal-wrap">
@@ -1336,7 +1419,7 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
   <div class="wrap reveal" style="margin-bottom: 48px;">
     <span class="section-eyebrow">profile.yml</span>
     <h2>Generic skeleton. <span class="gradient-text">Your moat is the tuning.</span></h2>
-    <p class="lede">Three starter profiles ship in <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 8px; background: rgba(6,182,212,.1); border-radius: 4px; color: var(--cyan-bright); font-size: .9em;">examples/</code>. Copy the closest one, edit identity and targets, then keep adding lane signals as you learn what surfaces as <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 8px; background: rgba(6,182,212,.1); border-radius: 4px; color: var(--cyan-bright); font-size: .9em;">unfit</code> that shouldn't be.</p>
+    <p class="lede">Three starter profiles ship in <code class="kbd">examples/</code>. Copy the closest one, edit identity and targets, then keep adding lane signals as you learn what surfaces as <code class="kbd">unfit</code> that shouldn't be.</p>
   </div>
   <div class="wrap reveal">
     <div class="profile-switcher">
@@ -1389,7 +1472,7 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
   <div class="wrap wrap-narrow reveal" style="margin-bottom: 40px; text-align: center;">
     <span class="section-eyebrow">Quickstart</span>
     <h2>Four commands to running.</h2>
-    <p class="lede" style="margin: 0 auto;">Skills land in <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 8px; background: rgba(6,182,212,.1); border-radius: 4px; color: var(--cyan-bright); font-size: .9em;">~/.claude/commands/</code>. Engine in <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 8px; background: rgba(6,182,212,.1); border-radius: 4px; color: var(--cyan-bright); font-size: .9em;">~/.job-radar/engine/</code>. Profile at <code style="font-family: 'JetBrains Mono', monospace; padding: 2px 8px; background: rgba(6,182,212,.1); border-radius: 4px; color: var(--cyan-bright); font-size: .9em;">~/.job-radar/profile.yml</code>. Idempotent.</p>
+    <p class="lede" style="margin: 0 auto;">Skills land in <code class="kbd">~/.claude/commands/</code>. Engine in <code class="kbd">~/.job-radar/engine/</code>. Profile at <code class="kbd">~/.job-radar/profile.yml</code>. Idempotent.</p>
   </div>
   <div class="wrap reveal">
     <div class="code-block" id="install-block">
@@ -1550,8 +1633,10 @@ bash install.sh
   </div>
 </section>
 
+</main>
+
 <!-- ───────────────────────── Footer ───────────────────────── -->
-<footer>
+<footer role="contentinfo">
   <div class="footer-grad"></div>
   <div class="wrap">
     <div class="footer-grid">
@@ -1604,6 +1689,47 @@ const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { rootMargin: '0px 0px -80px 0px' });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ─────────────────────── Scroll progress ─────────────────────── */
+(() => {
+  const bar = document.querySelector('.scroll-progress');
+  if (!bar) return;
+  let ticking = false;
+  function update() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    bar.style.setProperty('--scroll', pct + '%');
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
+})();
+
+/* ─────────────────────── Skill card cursor-glow ─────────────────────── */
+document.querySelectorAll('.skill-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    card.style.setProperty('--my', `${e.clientY - r.top}px`);
+  });
+});
+
+/* ─────────────────────── Live GitHub stars ─────────────────────── */
+(async () => {
+  const el = document.getElementById('star-count');
+  if (!el) return;
+  try {
+    const r = await fetch('https://api.github.com/repos/Dicoangelo/job-radar-production', { cache: 'force-cache' });
+    if (!r.ok) throw new Error('rate-limited');
+    const d = await r.json();
+    const stars = d.stargazers_count ?? 0;
+    el.textContent = stars >= 1000 ? `${(stars/1000).toFixed(1)}k` : stars;
+  } catch {
+    el.parentElement.style.display = 'none';
+  }
+})();
 
 /* ─────────────────────── Interactive scorer ─────────────────────── */
 const PROFILES = {
@@ -1698,6 +1824,30 @@ function scorePosting(title, desc, profile) {
   return { lane: bestLane, score: Math.max(0, Math.min(100, score)), reasons };
 }
 
+let scoreAnimFrame = null;
+let scoreCurrent = 0;
+function animateScore(target, el) {
+  if (scoreAnimFrame) cancelAnimationFrame(scoreAnimFrame);
+  if (reducedMotion) { el.textContent = target; scoreCurrent = target; return; }
+  const start = scoreCurrent;
+  const delta = target - start;
+  const duration = 380;
+  const t0 = performance.now();
+  function frame(now) {
+    const t = Math.min(1, (now - t0) / duration);
+    // ease-out cubic
+    const eased = 1 - Math.pow(1 - t, 3);
+    const val = Math.round(start + delta * eased);
+    el.textContent = val;
+    if (t < 1) {
+      scoreAnimFrame = requestAnimationFrame(frame);
+    } else {
+      scoreCurrent = target;
+    }
+  }
+  scoreAnimFrame = requestAnimationFrame(frame);
+}
+
 function renderScore() {
   const title = document.getElementById('scorer-title').value;
   const desc = document.getElementById('scorer-desc').value;
@@ -1709,7 +1859,7 @@ function renderScore() {
   const laneEl = document.getElementById('score-lane');
   const reasonsEl = document.getElementById('score-reasons');
 
-  numEl.textContent = result.score;
+  animateScore(result.score, numEl);
   numEl.className = 'score-num ' + (result.score >= 70 ? 'good' : result.score >= 40 ? 'mid' : result.score > 0 ? 'bad' : 'bad');
 
   if (result.lane === 'unfit') {
@@ -1826,36 +1976,47 @@ const TERMINALS = {
 };
 
 let typeTimer = null;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function typeOutTerminal(key) {
   if (typeTimer) clearTimeout(typeTimer);
   const body = document.getElementById('terminal-body');
-  body.innerHTML = '';
+  if (!body) return;
   const tokens = TERMINALS[key];
-  let ti = 0, ci = 0, current = '';
+  // If reduced motion, paint instantly
+  if (reducedMotion) {
+    body.innerHTML = tokens.map(t => `<span${t.c ? ` class="${t.c}"` : ''}>${t.t}</span>`).join('') + '<span class="cursor"></span>';
+    return;
+  }
+  body.innerHTML = '';
+  let ti = 0, ci = 0;
+  let prefix = '';
+  function delayFor(ch) {
+    // Variable typing speed for organic feel
+    if (ch === '\n') return 80;             // pause on newlines
+    if (ch === ' ') return 4;               // fast on whitespace
+    if (/[.,:;\-]/.test(ch)) return 18;     // tiny beat on punctuation
+    return 6 + Math.random() * 6;           // 6-12ms otherwise
+  }
   function step() {
     if (ti >= tokens.length) {
-      body.innerHTML += '<span class="cursor"></span>';
+      body.innerHTML = prefix + '<span class="cursor"></span>';
       return;
     }
     const tok = tokens[ti];
     if (ci < tok.t.length) {
-      current += tok.t[ci];
+      const ch = tok.t[ci];
       ci++;
       const klass = tok.c ? ` class="${tok.c}"` : '';
-      // build incremental HTML
-      let html = '';
-      for (let i = 0; i < ti; i++) {
-        const tk = tokens[i];
-        const k = tk.c ? ` class="${tk.c}"` : '';
-        html += `<span${k}>${tk.t}</span>`;
-      }
-      html += `<span${klass}>${tok.t.slice(0, ci)}</span><span class="cursor"></span>`;
-      body.innerHTML = html;
-      typeTimer = setTimeout(step, 8);
+      body.innerHTML = prefix + `<span${klass}>${tok.t.slice(0, ci)}</span><span class="cursor"></span>`;
+      // Auto-scroll terminal as new lines appear
+      body.scrollTop = body.scrollHeight;
+      typeTimer = setTimeout(step, delayFor(ch));
     } else {
+      const klass = tok.c ? ` class="${tok.c}"` : '';
+      prefix += `<span${klass}>${tok.t}</span>`;
       ti++;
       ci = 0;
-      typeTimer = setTimeout(step, 2);
+      typeTimer = setTimeout(step, 1);
     }
   }
   step();
