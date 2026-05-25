@@ -77,7 +77,7 @@
 <div align="center">
 
 ```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#06b6d4', 'primaryTextColor': '#fff', 'primaryBorderColor': '#06b6d4', 'lineColor': '#a855f7', 'secondaryColor': '#1a1a2e', 'tertiaryColor': '#0d1117', 'clusterBkg': '#0d1117', 'clusterBorder': '#06b6d4'}}}%%
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#18E6FF', 'primaryTextColor': '#fff', 'primaryBorderColor': '#18E6FF', 'lineColor': '#FF3DF2', 'secondaryColor': '#1a1a2e', 'tertiaryColor': '#0d1117', 'clusterBkg': '#0d1117', 'clusterBorder': '#18E6FF'}}}%%
 flowchart TB
     subgraph PLATFORM["JOB-RADAR PLATFORM"]
         direction TB
@@ -137,13 +137,13 @@ flowchart TB
     APPLY -.->|"reads/writes"| DB
     APPLY -.->|"opt"| VISA
 
-    style PLATFORM fill:#0d1117,stroke:#06b6d4,stroke-width:3px
-    style SKILLS fill:#1a1a2e,stroke:#06b6d4,stroke-width:2px
-    style ENGINE fill:#1a1a2e,stroke:#a855f7,stroke-width:2px
+    style PLATFORM fill:#0d1117,stroke:#18E6FF,stroke-width:3px
+    style SKILLS fill:#1a1a2e,stroke:#18E6FF,stroke-width:2px
+    style ENGINE fill:#1a1a2e,stroke:#FF3DF2,stroke-width:2px
     style ATS fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px
-    style DATA fill:#16213e,stroke:#06b6d4,stroke-width:2px
-    style OPERATOR fill:#06b6d4,stroke:#fff,stroke-width:2px,color:#0d1117
-    style GMAIL fill:#a855f7,stroke:#fff,stroke-width:2px,color:#fff
+    style DATA fill:#16213e,stroke:#18E6FF,stroke-width:2px
+    style OPERATOR fill:#18E6FF,stroke:#fff,stroke-width:2px,color:#0d1117
+    style GMAIL fill:#FF3DF2,stroke:#fff,stroke-width:2px,color:#fff
 ```
 
 <sub>Five skills, one engine, one SQLite file. Your data stays local.</sub>
@@ -326,7 +326,7 @@ See [`profile.example.yml`](profile.example.yml) for the full annotated schema.
 <div align="center">
 
 ```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#06b6d4', 'primaryTextColor': '#fff', 'primaryBorderColor': '#06b6d4', 'lineColor': '#a855f7', 'secondaryColor': '#1a1a2e', 'tertiaryColor': '#0d1117'}}}%%
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#18E6FF', 'primaryTextColor': '#fff', 'primaryBorderColor': '#18E6FF', 'lineColor': '#FF3DF2', 'secondaryColor': '#1a1a2e', 'tertiaryColor': '#0d1117'}}}%%
 flowchart LR
     POSTING([Job Posting])
     BLOCK{Title<br/>blocklisted?}
@@ -343,12 +343,12 @@ flowchart LR
     SCORE --> CLAMP
     CLAMP --> OUT
 
-    style POSTING fill:#06b6d4,color:#0d1117,stroke:#fff,stroke-width:2px
-    style BLOCK fill:#1a1a2e,stroke:#a855f7,stroke-width:2px,color:#fff
-    style LANE fill:#1a1a2e,stroke:#a855f7,stroke-width:2px,color:#fff
-    style SCORE fill:#1a1a2e,stroke:#06b6d4,stroke-width:2px,color:#fff
-    style CLAMP fill:#1a1a2e,stroke:#6366f1,stroke-width:2px,color:#fff
-    style OUT fill:#06b6d4,color:#0d1117,stroke:#fff,stroke-width:2px
+    style POSTING fill:#18E6FF,color:#0d1117,stroke:#fff,stroke-width:2px
+    style BLOCK fill:#1a1a2e,stroke:#FF3DF2,stroke-width:2px,color:#fff
+    style LANE fill:#1a1a2e,stroke:#FF3DF2,stroke-width:2px,color:#fff
+    style SCORE fill:#1a1a2e,stroke:#18E6FF,stroke-width:2px,color:#fff
+    style CLAMP fill:#1a1a2e,stroke:#7B2CFF,stroke-width:2px,color:#fff
+    style OUT fill:#18E6FF,color:#0d1117,stroke:#fff,stroke-width:2px
     style UNFIT fill:#7c3aed,color:#fff,stroke:#fff
     style NOLANE fill:#7c3aed,color:#fff,stroke:#fff
 ```

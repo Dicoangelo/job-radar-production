@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>Job Radar — Self-hosted Job Search Intelligence for Claude Code | Metaventions AI</title>
 <meta name="description" content="Five Claude Code skills + a Python engine. Daily ATS scan, LinkedIn alert ingest, warm-line orchestration, end-to-end apply pipeline. One concrete top pick a day. Self-hosted, MIT licensed, your data on your machine." />
-<meta name="theme-color" content="#06b6d4" />
+<meta name="theme-color" content="#7B2CFF" />
 <meta name="color-scheme" content="dark" />
 
 <link rel="canonical" href="https://radar.metaventionsai.com/" />
@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%23a855f7'/><stop offset='50%25' stop-color='%236366f1'/><stop offset='100%25' stop-color='%2306b6d4'/></linearGradient></defs><rect width='64' height='64' rx='14' fill='%230d1117'/><circle cx='32' cy='32' r='22' fill='none' stroke='url(%23g)' stroke-width='3' opacity='0.4'/><circle cx='32' cy='32' r='14' fill='none' stroke='url(%23g)' stroke-width='3' opacity='0.7'/><circle cx='32' cy='32' r='5' fill='url(%23g)'/></svg>" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><defs><linearGradient id='g' x1='5' y1='5' x2='35' y2='35' gradientUnits='userSpaceOnUse'><stop stop-color='%23FF3DF2'/><stop offset='0.5' stop-color='%237B2CFF'/><stop offset='1' stop-color='%2318E6FF'/></linearGradient></defs><rect width='40' height='40' rx='8' fill='%2305070D'/><path d='M8 33L20 7L32 33H28L20 17L12 33H8Z' fill='url(%23g)'/><path d='M16 33L20 25L24 33H16Z' fill='%2318E6FF'/></svg>" />
 
 <style>
 :root {
@@ -39,24 +39,28 @@
   --text-2: #b8c1cc;
   --text-3: #8b949e;
   --text-4: #586069;
-  --violet: #a855f7;
-  --purple: #8b5cf6;
-  --indigo: #6366f1;
-  --cyan: #06b6d4;
-  --cyan-bright: #22d3ee;
+  /* Metaventions AI brand palette */
+  --brand-magenta: #FF3DF2;
+  --brand-purple: #7B2CFF;
+  --brand-cyan: #18E6FF;
+  --violet: #FF3DF2;
+  --purple: #7B2CFF;
+  --indigo: #7B2CFF;
+  --cyan: #18E6FF;
+  --cyan-bright: #18E6FF;
   --green: #4ade80;
   --yellow: #facc15;
   --red: #f87171;
-  --grad: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #06b6d4 100%);
-  --grad-text: linear-gradient(120deg, #c084fc 0%, #818cf8 35%, #22d3ee 100%);
-  --grad-soft: linear-gradient(135deg, rgba(168,85,247,.12) 0%, rgba(99,102,241,.10) 50%, rgba(6,182,212,.12) 100%);
-  --grad-radial: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,.18), transparent 60%);
+  --grad: linear-gradient(135deg, #FF3DF2 0%, #7B2CFF 50%, #18E6FF 100%);
+  --grad-text: linear-gradient(120deg, #FF3DF2 0%, #7B2CFF 45%, #18E6FF 100%);
+  --grad-soft: linear-gradient(135deg, rgba(255,61,242,.12) 0%, rgba(123,44,255,.10) 50%, rgba(24,230,255,.12) 100%);
+  --grad-radial: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(123,44,255,.18), transparent 60%);
   --border: rgba(255,255,255,.08);
-  --border-bright: rgba(6,182,212,.28);
+  --border-bright: rgba(24,230,255,.28);
   --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
   --shadow-md: 0 8px 24px rgba(0,0,0,.35);
   --shadow-lg: 0 20px 60px rgba(0,0,0,.45);
-  --shadow-glow: 0 0 60px rgba(6,182,212,.25);
+  --shadow-glow: 0 0 60px rgba(24,230,255,.28);
   --radius: 14px;
   --radius-lg: 20px;
   --easing: cubic-bezier(.2,.7,.2,1);
@@ -90,8 +94,8 @@ section[id] { scroll-margin-top: 88px; }
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: .88em;
   padding: 2px 8px;
-  background: rgba(6,182,212,.1);
-  border: 1px solid rgba(6,182,212,.2);
+  background: rgba(24,230,255,.1);
+  border: 1px solid rgba(24,230,255,.2);
   border-radius: 5px;
   color: var(--cyan-bright);
   font-weight: 500;
@@ -108,7 +112,7 @@ html, body {
   line-height: 1.55;
   overflow-x: hidden;
 }
-::selection { background: rgba(6,182,212,.35); color: #fff; }
+::selection { background: rgba(24,230,255,.35); color: #fff; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
@@ -118,10 +122,10 @@ html, body {
 .bg-mesh {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 900px 700px at 12% 8%, rgba(168,85,247,.16), transparent 60%),
-    radial-gradient(ellipse 900px 700px at 88% 22%, rgba(6,182,212,.14), transparent 60%),
-    radial-gradient(ellipse 700px 500px at 50% 60%, rgba(99,102,241,.10), transparent 60%),
-    radial-gradient(ellipse 600px 400px at 30% 95%, rgba(168,85,247,.08), transparent 60%);
+    radial-gradient(ellipse 900px 700px at 12% 8%, rgba(255,61,242,.16), transparent 60%),
+    radial-gradient(ellipse 900px 700px at 88% 22%, rgba(24,230,255,.14), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 50% 60%, rgba(123,44,255,.10), transparent 60%),
+    radial-gradient(ellipse 600px 400px at 30% 95%, rgba(255,61,242,.08), transparent 60%);
 }
 .bg-grid {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -141,9 +145,9 @@ html, body {
   opacity: .35;
   animation: float 22s ease-in-out infinite;
 }
-.orb.v { width: 480px; height: 480px; background: #a855f7; top: -120px; left: -120px; }
-.orb.i { width: 420px; height: 420px; background: #6366f1; top: 30%; right: -100px; animation-delay: -7s; }
-.orb.c { width: 380px; height: 380px; background: #06b6d4; bottom: -120px; left: 30%; animation-delay: -14s; }
+.orb.v { width: 480px; height: 480px; background: #FF3DF2; top: -120px; left: -120px; }
+.orb.i { width: 420px; height: 420px; background: #7B2CFF; top: 30%; right: -100px; animation-delay: -7s; }
+.orb.c { width: 380px; height: 380px; background: #18E6FF; bottom: -120px; left: 30%; animation-delay: -14s; }
 @keyframes float {
   0%, 100% { transform: translate(0,0) scale(1); }
   33% { transform: translate(60px, -40px) scale(1.08); }
@@ -219,7 +223,7 @@ h3 { font-size: clamp(20px, 2vw, 24px); }
   content: ""; display: block; height: 100%;
   background: var(--grad);
   width: var(--scroll, 0%);
-  box-shadow: 0 0 12px rgba(6,182,212,.6);
+  box-shadow: 0 0 12px rgba(24,230,255,.6);
   transition: width .08s linear;
 }
 
@@ -240,24 +244,13 @@ nav .row {
   flex-shrink: 0;
 }
 .brand-mark {
-  width: 32px; height: 32px; border-radius: 9px;
-  background: var(--grad);
+  width: 36px; height: 36px;
   display: grid; place-items: center;
-  box-shadow: 0 0 24px rgba(6,182,212,.4), inset 0 0 0 1px rgba(255,255,255,.1);
   position: relative;
+  filter: drop-shadow(0 0 14px rgba(123,44,255,.45));
+  flex-shrink: 0;
 }
-.brand-mark::before {
-  content: ""; position: absolute; inset: 4px;
-  background: var(--bg);
-  border-radius: 5px;
-}
-.brand-mark::after {
-  content: ""; position: absolute;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--cyan-bright);
-  box-shadow: 0 0 8px var(--cyan-bright);
-}
+.brand-mark svg { width: 100%; height: 100%; display: block; }
 .brand-name { font-weight: 700; font-size: 15px; letter-spacing: .04em; color: var(--text); font-family: 'Orbitron', system-ui; }
 .brand-tag { color: var(--text-3); font-weight: 400; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
 
@@ -292,7 +285,7 @@ nav .row {
   background: linear-gradient(135deg, rgba(255,255,255,.2), transparent);
   opacity: 0; transition: opacity .2s;
 }
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(6,182,212,.45); }
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(24,230,255,.45); }
 .nav-cta:hover::before { opacity: 1; }
 .nav-cta svg, .nav-cta span { position: relative; z-index: 1; }
 .star-badge {
@@ -322,7 +315,7 @@ nav .row {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 4px 24px rgba(99,102,241,.3));
+  filter: drop-shadow(0 4px 24px rgba(123,44,255,.3));
   animation: rise .8s var(--easing) backwards;
 }
 .hero-title-line:nth-child(2) { animation-delay: .15s; }
@@ -361,7 +354,7 @@ nav .row {
   background: var(--grad);
   color: #0d1117;
   border: none;
-  box-shadow: 0 8px 28px rgba(6,182,212,.32);
+  box-shadow: 0 8px 28px rgba(24,230,255,.32);
   position: relative; overflow: hidden;
 }
 .btn-primary::before {
@@ -369,10 +362,10 @@ nav .row {
   background: linear-gradient(135deg, rgba(255,255,255,.2), transparent);
   opacity: 0; transition: opacity .25s;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(6,182,212,.5); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(24,230,255,.5); }
 .btn-primary:hover::before { opacity: 1; }
 .btn-ghost { background: rgba(255,255,255,.04); }
-.btn-ghost:hover { background: rgba(6,182,212,.1); border-color: var(--cyan); color: var(--cyan-bright); }
+.btn-ghost:hover { background: rgba(24,230,255,.1); border-color: var(--cyan); color: var(--cyan-bright); }
 .btn .arr { transition: transform .2s var(--easing); }
 .btn:hover .arr { transform: translateX(3px); }
 
@@ -518,7 +511,7 @@ nav .row {
 .scorer-input:focus, .scorer-textarea:focus, .scorer-select:focus {
   outline: none;
   border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(6,182,212,.18);
+  box-shadow: 0 0 0 3px rgba(24,230,255,.18);
 }
 .scorer-textarea { min-height: 110px; font-size: 13px; line-height: 1.55; }
 .scorer-select { cursor: pointer; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--cyan) 50%), linear-gradient(135deg, var(--cyan) 50%, transparent 50%); background-position: calc(100% - 16px) center, calc(100% - 11px) center; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 40px; }
@@ -531,13 +524,13 @@ nav .row {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px; letter-spacing: .04em;
   padding: 6px 12px; border-radius: 8px;
-  background: rgba(6,182,212,.08);
+  background: rgba(24,230,255,.08);
   border: 1px solid var(--border);
   color: var(--cyan-bright);
   cursor: pointer;
   transition: all .15s;
 }
-.preset-chip:hover { background: rgba(6,182,212,.16); border-color: var(--cyan); }
+.preset-chip:hover { background: rgba(24,230,255,.16); border-color: var(--cyan); }
 
 .scorer-output {
   background: var(--bg-3);
@@ -571,9 +564,9 @@ nav .row {
   margin-top: 8px;
   padding: 4px 12px;
   border-radius: 999px;
-  background: rgba(168,85,247,.14);
-  border: 1px solid rgba(168,85,247,.3);
-  color: #c084fc;
+  background: rgba(255,61,242,.14);
+  border: 1px solid rgba(255,61,242,.3);
+  color: #FF8AF4;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
   font-weight: 600;
@@ -600,7 +593,7 @@ nav .row {
 .score-reason.lane { border-left-color: var(--cyan); color: var(--cyan-bright); }
 .score-reasons::-webkit-scrollbar { width: 4px; }
 .score-reasons::-webkit-scrollbar-track { background: transparent; }
-.score-reasons::-webkit-scrollbar-thumb { background: rgba(6,182,212,.2); border-radius: 2px; }
+.score-reasons::-webkit-scrollbar-thumb { background: rgba(24,230,255,.2); border-radius: 2px; }
 
 /* ─────────────────────── Skills grid ─────────────────────── */
 .skills-grid {
@@ -630,27 +623,27 @@ nav .row {
 .skill-card:hover {
   transform: translateY(-4px);
   border-color: var(--border-bright);
-  box-shadow: var(--shadow-md), 0 0 0 1px rgba(6,182,212,.15);
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(24,230,255,.15);
 }
 .skill-card:hover::before {
   opacity: 1;
   background:
-    radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), rgba(6,182,212,.16), transparent 60%),
+    radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), rgba(24,230,255,.16), transparent 60%),
     var(--grad-soft);
 }
 .skill-card:hover::after { opacity: 1; }
 .skill-card:hover .skill-icon {
   transform: scale(1.06) rotate(-3deg);
-  background: rgba(6,182,212,.18);
-  border-color: rgba(6,182,212,.4);
+  background: rgba(24,230,255,.18);
+  border-color: rgba(24,230,255,.4);
 }
 .skill-card .skill-icon { transition: transform .25s var(--easing), background .25s, border-color .25s; }
 .skill-card > * { position: relative; z-index: 1; }
 
 .skill-icon {
   width: 44px; height: 44px; border-radius: 11px;
-  background: rgba(6,182,212,.1);
-  border: 1px solid rgba(6,182,212,.25);
+  background: rgba(24,230,255,.1);
+  border: 1px solid rgba(24,230,255,.25);
   display: grid; place-items: center;
   margin-bottom: 18px;
   color: var(--cyan-bright);
@@ -742,7 +735,7 @@ nav .row {
 .terminal-tab.active {
   color: var(--cyan-bright);
   border-bottom-color: var(--cyan);
-  background: rgba(6,182,212,.06);
+  background: rgba(24,230,255,.06);
 }
 .terminal-body {
   padding: 28px 32px;
@@ -803,7 +796,7 @@ nav .row {
 }
 .profile-tab:hover { color: var(--text-2); }
 .profile-tab.active {
-  background: rgba(6,182,212,.1);
+  background: rgba(24,230,255,.1);
   border-color: var(--border-bright);
   color: var(--cyan-bright);
 }
@@ -900,7 +893,7 @@ nav .row {
 .code-block .s { color: var(--green); }
 .copy-btn {
   position: absolute; top: 10px; right: 60px;
-  background: rgba(6,182,212,.1);
+  background: rgba(24,230,255,.1);
   border: 1px solid var(--border-bright);
   color: var(--cyan-bright);
   font-family: 'JetBrains Mono', monospace;
@@ -909,7 +902,7 @@ nav .row {
   cursor: pointer;
   transition: all .15s;
 }
-.copy-btn:hover { background: rgba(6,182,212,.2); }
+.copy-btn:hover { background: rgba(24,230,255,.2); }
 .copy-btn.copied { color: var(--green); border-color: var(--green); }
 
 /* ─────────────────────── FAQ ─────────────────────── */
@@ -951,7 +944,7 @@ nav .row {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   padding: 2px 6px;
-  background: rgba(6,182,212,.1);
+  background: rgba(24,230,255,.1);
   border-radius: 4px;
   color: var(--cyan-bright);
 }
@@ -1083,8 +1076,20 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
 <!-- ───────────────────────── Nav ───────────────────────── -->
 <nav role="navigation" aria-label="Primary">
   <div class="wrap row">
-    <a href="#" class="brand">
-      <div class="brand-mark"></div>
+    <a href="#" class="brand" aria-label="Job Radar by Metaventions AI">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mva-mark" x1="5" y1="5" x2="35" y2="35" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FF3DF2"/>
+              <stop offset="0.5" stop-color="#7B2CFF"/>
+              <stop offset="1" stop-color="#18E6FF"/>
+            </linearGradient>
+          </defs>
+          <path d="M8 33L20 7L32 33H28L20 17L12 33H8Z" fill="url(#mva-mark)"/>
+          <path d="M16 33L20 25L24 33H16Z" fill="#18E6FF"/>
+        </svg>
+      </div>
       <div>
         <div class="brand-name">JOB RADAR</div>
         <div class="brand-tag">by Metaventions AI</div>
@@ -1279,19 +1284,19 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
       <svg class="arch-svg" viewBox="0 0 900 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="System architecture diagram">
         <defs>
           <linearGradient id="g-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#a855f7"/>
-            <stop offset="50%" stop-color="#6366f1"/>
-            <stop offset="100%" stop-color="#06b6d4"/>
+            <stop offset="0%" stop-color="#FF3DF2"/>
+            <stop offset="50%" stop-color="#7B2CFF"/>
+            <stop offset="100%" stop-color="#18E6FF"/>
           </linearGradient>
           <linearGradient id="g-cyan" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#06b6d4"/>
-            <stop offset="100%" stop-color="#22d3ee"/>
+            <stop offset="0%" stop-color="#18E6FF"/>
+            <stop offset="100%" stop-color="#18E6FF"/>
           </linearGradient>
           <marker id="m-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0 0 L10 5 L0 10 Z" fill="#a855f7"/>
+            <path d="M0 0 L10 5 L0 10 Z" fill="#FF3DF2"/>
           </marker>
           <marker id="m-arr-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0 0 L10 5 L0 10 Z" fill="#06b6d4"/>
+            <path d="M0 0 L10 5 L0 10 Z" fill="#18E6FF"/>
           </marker>
         </defs>
 
@@ -1300,95 +1305,95 @@ footer .footer-grad { height: 2px; background: var(--grad); margin-bottom: 64px;
         <text x="450" y="46" text-anchor="middle" fill="#0d1117" font-family="Orbitron, system-ui" font-weight="800" font-size="14" letter-spacing="2">OPERATOR</text>
 
         <!-- Skills band -->
-        <rect x="40" y="100" width="820" height="120" rx="16" fill="rgba(6,182,212,.04)" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4"/>
-        <text x="60" y="124" fill="#06b6d4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="3" font-weight="700">SKILLS LAYER · ~/.claude/commands/</text>
+        <rect x="40" y="100" width="820" height="120" rx="16" fill="rgba(24,230,255,.04)" stroke="#18E6FF" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="60" y="124" fill="#18E6FF" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="3" font-weight="700">SKILLS LAYER · ~/.claude/commands/</text>
         <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">
-          <rect x="60" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="134" y="172" text-anchor="middle" fill="#22d3ee">/job-radar</text>
+          <rect x="60" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#18E6FF" stroke-width="1.5"/>
+          <text x="134" y="172" text-anchor="middle" fill="#18E6FF">/job-radar</text>
           <text x="134" y="190" text-anchor="middle" fill="#586069" font-size="10">daily ATS scan</text>
-          <rect x="220" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="294" y="166" text-anchor="middle" fill="#22d3ee">/job-radar</text>
-          <text x="294" y="180" text-anchor="middle" fill="#22d3ee">-linkedin</text>
+          <rect x="220" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#18E6FF" stroke-width="1.5"/>
+          <text x="294" y="166" text-anchor="middle" fill="#18E6FF">/job-radar</text>
+          <text x="294" y="180" text-anchor="middle" fill="#18E6FF">-linkedin</text>
           <text x="294" y="196" text-anchor="middle" fill="#586069" font-size="10">Gmail alert ingest</text>
-          <rect x="380" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="454" y="166" text-anchor="middle" fill="#22d3ee">/job-radar</text>
-          <text x="454" y="180" text-anchor="middle" fill="#22d3ee">-firecrawl</text>
+          <rect x="380" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#18E6FF" stroke-width="1.5"/>
+          <text x="454" y="166" text-anchor="middle" fill="#18E6FF">/job-radar</text>
+          <text x="454" y="180" text-anchor="middle" fill="#18E6FF">-firecrawl</text>
           <text x="454" y="196" text-anchor="middle" fill="#586069" font-size="10">broad-web (paid)</text>
-          <rect x="540" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="614" y="172" text-anchor="middle" fill="#22d3ee">/warm-line</text>
+          <rect x="540" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#18E6FF" stroke-width="1.5"/>
+          <text x="614" y="172" text-anchor="middle" fill="#18E6FF">/warm-line</text>
           <text x="614" y="190" text-anchor="middle" fill="#586069" font-size="10">pre-apply leverage</text>
-          <rect x="700" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="774" y="172" text-anchor="middle" fill="#22d3ee">/apply</text>
+          <rect x="700" y="138" width="148" height="64" rx="10" fill="#1a1a2e" stroke="#18E6FF" stroke-width="1.5"/>
+          <text x="774" y="172" text-anchor="middle" fill="#18E6FF">/apply</text>
           <text x="774" y="190" text-anchor="middle" fill="#586069" font-size="10">end-to-end submit</text>
         </g>
 
-        <line x1="450" y1="64" x2="450" y2="100" stroke="#06b6d4" stroke-width="2" marker-end="url(#m-arr-c)"/>
+        <line x1="450" y1="64" x2="450" y2="100" stroke="#18E6FF" stroke-width="2" marker-end="url(#m-arr-c)"/>
 
         <!-- Engine band -->
-        <rect x="40" y="250" width="820" height="130" rx="16" fill="rgba(168,85,247,.04)" stroke="#a855f7" stroke-width="2" stroke-dasharray="6 4"/>
-        <text x="60" y="274" fill="#a855f7" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="3" font-weight="700">PYTHON ENGINE · ~/.job-radar/engine/</text>
+        <rect x="40" y="250" width="820" height="130" rx="16" fill="rgba(255,61,242,.04)" stroke="#FF3DF2" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="60" y="274" fill="#FF3DF2" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="3" font-weight="700">PYTHON ENGINE · ~/.job-radar/engine/</text>
         <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">
-          <rect x="60" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
-          <text x="134" y="318" text-anchor="middle" fill="#c084fc">profile.yml</text>
+          <rect x="60" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#FF3DF2" stroke-width="1.5"/>
+          <text x="134" y="318" text-anchor="middle" fill="#FF8AF4">profile.yml</text>
           <text x="134" y="334" text-anchor="middle" fill="#586069" font-size="10">YAML config</text>
           <text x="134" y="350" text-anchor="middle" fill="#586069" font-size="10">single source</text>
-          <rect x="220" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
-          <text x="294" y="318" text-anchor="middle" fill="#c084fc">scorer.py</text>
+          <rect x="220" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#FF3DF2" stroke-width="1.5"/>
+          <text x="294" y="318" text-anchor="middle" fill="#FF8AF4">scorer.py</text>
           <text x="294" y="334" text-anchor="middle" fill="#586069" font-size="10">title-first regex</text>
           <text x="294" y="350" text-anchor="middle" fill="#586069" font-size="10">0-100 score</text>
-          <rect x="380" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
-          <text x="454" y="318" text-anchor="middle" fill="#c084fc">discover.py</text>
+          <rect x="380" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#FF3DF2" stroke-width="1.5"/>
+          <text x="454" y="318" text-anchor="middle" fill="#FF8AF4">discover.py</text>
           <text x="454" y="334" text-anchor="middle" fill="#586069" font-size="10">ATS pipeline</text>
           <text x="454" y="350" text-anchor="middle" fill="#586069" font-size="10">dedup, upsert</text>
-          <rect x="540" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
-          <text x="614" y="318" text-anchor="middle" fill="#c084fc">briefing.py</text>
+          <rect x="540" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#FF3DF2" stroke-width="1.5"/>
+          <text x="614" y="318" text-anchor="middle" fill="#FF8AF4">briefing.py</text>
           <text x="614" y="334" text-anchor="middle" fill="#586069" font-size="10">one-screen .md</text>
           <text x="614" y="350" text-anchor="middle" fill="#586069" font-size="10">history-aware</text>
-          <rect x="700" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
-          <text x="774" y="314" text-anchor="middle" fill="#c084fc">linkedin</text>
-          <text x="774" y="328" text-anchor="middle" fill="#c084fc">_ingest.py</text>
+          <rect x="700" y="290" width="148" height="74" rx="10" fill="#1a1a2e" stroke="#FF3DF2" stroke-width="1.5"/>
+          <text x="774" y="314" text-anchor="middle" fill="#FF8AF4">linkedin</text>
+          <text x="774" y="328" text-anchor="middle" fill="#FF8AF4">_ingest.py</text>
           <text x="774" y="346" text-anchor="middle" fill="#586069" font-size="10">subject parse</text>
         </g>
 
-        <line x1="450" y1="220" x2="450" y2="250" stroke="#a855f7" stroke-width="2" marker-end="url(#m-arr)"/>
+        <line x1="450" y1="220" x2="450" y2="250" stroke="#FF3DF2" stroke-width="2" marker-end="url(#m-arr)"/>
 
         <!-- Data + ATS bands -->
-        <rect x="40" y="410" width="400" height="140" rx="16" fill="rgba(6,182,212,.04)" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4"/>
-        <text x="60" y="434" fill="#06b6d4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="3" font-weight="700">DATA LAYER · ~/.job-radar/</text>
+        <rect x="40" y="410" width="400" height="140" rx="16" fill="rgba(24,230,255,.04)" stroke="#18E6FF" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="60" y="434" fill="#18E6FF" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="3" font-weight="700">DATA LAYER · ~/.job-radar/</text>
         <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">
-          <rect x="60" y="450" width="114" height="80" rx="10" fill="#16213e" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="117" y="476" text-anchor="middle" fill="#22d3ee">radar.db</text>
+          <rect x="60" y="450" width="114" height="80" rx="10" fill="#16213e" stroke="#18E6FF" stroke-width="1.5"/>
+          <text x="117" y="476" text-anchor="middle" fill="#18E6FF">radar.db</text>
           <text x="117" y="494" text-anchor="middle" fill="#586069" font-size="10">SQLite + WAL</text>
           <text x="117" y="510" text-anchor="middle" fill="#586069" font-size="10">6 tables</text>
-          <rect x="186" y="450" width="114" height="80" rx="10" fill="#16213e" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="243" y="476" text-anchor="middle" fill="#22d3ee">briefings/</text>
+          <rect x="186" y="450" width="114" height="80" rx="10" fill="#16213e" stroke="#18E6FF" stroke-width="1.5"/>
+          <text x="243" y="476" text-anchor="middle" fill="#18E6FF">briefings/</text>
           <text x="243" y="494" text-anchor="middle" fill="#586069" font-size="10">YYYY-MM-DD</text>
           <text x="243" y="510" text-anchor="middle" fill="#586069" font-size="10">audit trail</text>
-          <rect x="312" y="450" width="114" height="80" rx="10" fill="#16213e" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="369" y="476" text-anchor="middle" fill="#22d3ee">lca.db</text>
+          <rect x="312" y="450" width="114" height="80" rx="10" fill="#16213e" stroke="#18E6FF" stroke-width="1.5"/>
+          <text x="369" y="476" text-anchor="middle" fill="#18E6FF">lca.db</text>
           <text x="369" y="494" text-anchor="middle" fill="#586069" font-size="10">OPTIONAL</text>
           <text x="369" y="510" text-anchor="middle" fill="#586069" font-size="10">visa annotate</text>
         </g>
 
-        <rect x="460" y="410" width="400" height="140" rx="16" fill="rgba(139,92,246,.04)" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 4"/>
-        <text x="480" y="434" fill="#8b5cf6" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="3" font-weight="700">ATS ADAPTERS · public APIs, no auth</text>
+        <rect x="460" y="410" width="400" height="140" rx="16" fill="rgba(139,92,246,.04)" stroke="#7B2CFF" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="480" y="434" fill="#7B2CFF" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="3" font-weight="700">ATS ADAPTERS · public APIs, no auth</text>
         <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">
-          <rect x="480" y="450" width="114" height="80" rx="10" fill="#1a1a2e" stroke="#8b5cf6" stroke-width="1.5"/>
+          <rect x="480" y="450" width="114" height="80" rx="10" fill="#1a1a2e" stroke="#7B2CFF" stroke-width="1.5"/>
           <text x="537" y="476" text-anchor="middle" fill="#c4b5fd">Greenhouse</text>
           <text x="537" y="494" text-anchor="middle" fill="#586069" font-size="10">boards-api</text>
           <text x="537" y="510" text-anchor="middle" fill="#586069" font-size="10">.greenhouse.io</text>
-          <rect x="606" y="450" width="114" height="80" rx="10" fill="#1a1a2e" stroke="#8b5cf6" stroke-width="1.5"/>
+          <rect x="606" y="450" width="114" height="80" rx="10" fill="#1a1a2e" stroke="#7B2CFF" stroke-width="1.5"/>
           <text x="663" y="476" text-anchor="middle" fill="#c4b5fd">Lever</text>
           <text x="663" y="494" text-anchor="middle" fill="#586069" font-size="10">api.lever.co</text>
           <text x="663" y="510" text-anchor="middle" fill="#586069" font-size="10">v0/postings</text>
-          <rect x="732" y="450" width="114" height="80" rx="10" fill="#1a1a2e" stroke="#8b5cf6" stroke-width="1.5"/>
+          <rect x="732" y="450" width="114" height="80" rx="10" fill="#1a1a2e" stroke="#7B2CFF" stroke-width="1.5"/>
           <text x="789" y="476" text-anchor="middle" fill="#c4b5fd">Ashby</text>
           <text x="789" y="494" text-anchor="middle" fill="#586069" font-size="10">posting-api</text>
           <text x="789" y="510" text-anchor="middle" fill="#586069" font-size="10">.ashbyhq.com</text>
         </g>
 
-        <line x1="240" y1="380" x2="240" y2="410" stroke="#06b6d4" stroke-width="2" marker-end="url(#m-arr-c)"/>
-        <line x1="660" y1="380" x2="660" y2="410" stroke="#8b5cf6" stroke-width="2" marker-end="url(#m-arr)"/>
+        <line x1="240" y1="380" x2="240" y2="410" stroke="#18E6FF" stroke-width="2" marker-end="url(#m-arr-c)"/>
+        <line x1="660" y1="380" x2="660" y2="410" stroke="#7B2CFF" stroke-width="2" marker-end="url(#m-arr)"/>
       </svg>
     </div>
   </div>
@@ -1641,8 +1646,20 @@ bash install.sh
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-col">
-        <a href="#" class="brand">
-          <div class="brand-mark"></div>
+        <a href="#" class="brand" aria-label="Job Radar by Metaventions AI">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="mva-mark-foot" x1="5" y1="5" x2="35" y2="35" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FF3DF2"/>
+                  <stop offset="0.5" stop-color="#7B2CFF"/>
+                  <stop offset="1" stop-color="#18E6FF"/>
+                </linearGradient>
+              </defs>
+              <path d="M8 33L20 7L32 33H28L20 17L12 33H8Z" fill="url(#mva-mark-foot)"/>
+              <path d="M16 33L20 25L24 33H16Z" fill="#18E6FF"/>
+            </svg>
+          </div>
           <div>
             <div class="brand-name">JOB RADAR</div>
             <div class="brand-tag">by Metaventions AI</div>
